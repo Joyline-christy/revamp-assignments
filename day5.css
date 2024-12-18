@@ -1,0 +1,23 @@
+h1{
+    color: maroon;
+}
+.form{
+     color: rgb(10, 18, 66);
+     font-weight: 900;
+     text-decoration: underline;
+     text-align: center;
+}
+*{
+font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}   
+#para{
+    font-style: italic;
+    font-size: medium;
+    font-family: "Playwrite MX Guides", serif;
+    font-weight: 400;
+    font-style: normal;
+    color:rgb(246,79,0) ;
+    
+} 
+
+  
