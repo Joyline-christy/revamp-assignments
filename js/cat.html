@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="bg-black flex flex-col items-center">
+        <img src="https://ik.imagekit.io/cbrnfskie/light/bulb-go-on-img.png" alt="" class="h-[300px] w-[300px]" id="bulbon">
+
+        <img src="https://ik.imagekit.io/cbrnfskie/light/cat-img.png" alt="" class="h-[300px] w-[300px]" id="cat">
+        
+        <div class="bg-[#9f9595] h-[100px] w-[250px] rounded-lg flex flex-col items-center m-9">
+            <div class="flex flex-row py-3" id="switch"><h1>switched on</h1></div>
+            
+            <div class="flex flex-row gap-3">
+                <button class="text-[white] bg-[black] rounded-lg p-3" id="on">on</button>
+                <button class="text-[white] bg-[black] rounded-lg p-3" id="off">off</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the elements
+        let onButton = document.getElementById('on');
+        let offButton = document.getElementById('off');
+        let switchText = document.getElementById('switch');
+        let bulbimg = document.getElementById('bulbon');
+        let catimg = document.getElementById('cat');
+        
+        // Add event listeners to buttons
+        onButton.addEventListener('click', () => {
+            switchText.textContent = "switched on";  // Change text content
+            bulbimg.src = "https://ik.imagekit.io/cbrnfskie/light/bulb-go-on-img.png";  // Change bulb image
+            catimg.src = "https://ik.imagekit.io/cbrnfskie/light/cat-img.png";  // Change cat image
+            
+            // Apply background color change for the "on" button
+            onButton.classList.add('bg-green-500');
+            onButton.classList.remove('bg-black');
+        });
+
+        offButton.addEventListener('click', () => {
+            switchText.textContent = "switched off";  // Change text content
+            bulbimg.src = "https://ik.imagekit.io/cbrnfskie/light/bulb-go-off-img.png";  // Change bulb image
+            catimg.src = "https://ik.imagekit.io/cbrnfskie/light/cat-eyes-img.png";  // Change cat image
+            
+            // Apply background color change for the "off" button
+            offButton.classList.add('bg-red-500');
+            offButton.classList.remove('bg-black');
+            
+            // Optionally reset the "on" button color to black
+            onButton.classList.remove('bg-green-500');
+            onButton.classList.add('bg-black');
+        });
+    </script>
+</body>
+</html>
