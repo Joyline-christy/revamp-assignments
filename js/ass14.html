@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com">
+      <!-- Tailwind CSS CDN for styling -->
+    </script>
+  </head>
+  <body>
+    <div class="bg-indigo-500 ... bg-auto h-dvh">
+      <button id="btn" class="bg-black text-white px-4 py-2 rounded">
+        Fetch Data
+      </button>
+      <div class="flex flex-row justify-center h-[100vh]">
+        <p id="para" class="w-[700px] h=[750px] bg-slate-50 text-center"></p>
+      </div>
+    </div>
+    <script>
+      // Get references to the button element and para element
+      let para = document.getElementById("para");
+      let btn = document.getElementById("btn");
+      // Add click event listener to the button
+      btn.addEventListener("click", () => {
+        // Fetch data from the Bacon Ipsum API
+        fetch("https://baconipsum.com/api/?type=all")
+          .then((resp) => {
+            return resp.json();
+          })
+          .then((data) => {
+            para.textContent = data;
+          })
+          .catch((error) => {
+            para.textContent = `An error occurred: ${error}`;
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="day6.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--FireBase SDK-->
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  </head>
+  <body>
+    <div id="bg" class="flex flex-row justify-center items-center h-[100vh]">
+      <div
+        class="bg-[#ACB541] h-[350px] w-[300px] rounded-lg border border-[5px] shadow-lg"
+      >
+        <p class="text-center font-medium">login</p>
+        <hr />
+        <form id="form" action="" class="flex flex-col justify-around h-[85%] px-[15px]">
+          <div>
+            <label for="email">email</label><br/>
+            <input
+              type="text"
+              required
+              id="email"
+              placeholder="enter your email"
+              class="w-[100%] outline-none p-[3px] rounded-xl mt-3"
+            />
+            <p id="emailerr" class="text-[12px] text-red-500"></p>
+          </div>
+          <div>
+            <label for="password">password</label><br />
+            <input
+              type=""
+              required       
+              id="password"
+              placeholder="enter your password"
+              class="w-[100%] outline-none p-[3px] rounded-xl mt-3"
+            />
+            <p id="passerr" class="text-[12px] text-red-500"></p>
+          </div>
+
+          <button class="bg-black text-white w-[50%] mx-auto rounded-lg py-2">
+            login
+          </button>
+        </form>
+      </div>
+    </div>
+    <script>
+      let form=document.getElementById("form");
+      let email=document.getElementById("email");
+      let password=document.getElementById("password");
+      let emailerr=document.getElementById("emailerr"); 
+      let passerr=document.getElementById("passerr");
+
+      
+function savedata(email,password){
+  // Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBoVG9iOIpt1qHQKXbhiKqTnLOLTqd-pvk",
+  authDomain: "mernproject-433de.firebaseapp.com",
+  databaseURL: "https://mernproject-433de-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mernproject-433de",
+  storageBucket: "mernproject-433de.firebasestorage.app",
+  messagingSenderId: "32763934358",
+  appId: "1:32763934358:web:0f7c3c84839fc49fbc34b7"
+};
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database().ref("ReqForm");
+
+db.push({
+  
+  email: email,
+  password:password
+});
+
+}
+
+
+
+
+      email.addEventListener("input",(e)=>{
+        //console.dir(e);
+        let regex=/^\S+@\S+\.\S+$/;
+        if(e.target.value===""){
+          emailerr.textContent="email should not be empty";
+        }else if(!e.target.value.match(regex)){
+          emailerr.textContent="try using format usernam@email.com";
+
+        }
+        
+        else{
+           emailerr.textContent=""
+        }
+
+
+      });
+      
+      password.addEventListener("input",(e)=>{
+        let passregex=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        let digitregex=/(?=.*?[0-9])/;
+        let specialregex=/(?=.*?[#?!@$%^&*-])/;
+        //console.dir(e);
+        
+        if(e.target.value===""){
+          passerr.textContent="password should not be empty";
+        }else if(!e.target.value.match(specialregex)){
+          passerr.textContent="must have one  special char";
+
+        }else if(!e.target.value.match(digitregex)){
+          passerr.textContent="must have one  digit char";
+
+        }else if(!e.target.value.match(passregex)){
+          passerr.textContent="password should min 8 char must contain one upper lower digit,symbol";
+        
+
+        }
+        
+        else{
+           passerr.textContent=""
+        }
+
+
+      });
+      form.addEventListener("submit",(e)=>{
+       e.preventDefault();
+       console.log(`${email.value} and ${password.value}`);
+
+       let isvalid=advancedValidation(email.value,password.value);
+       if(isvalid==true){
+        console.log("saving data to db");
+        
+        savedata(email.value,password.value);
+       }
+
+      });
+
+
+      function advancedValidation(email,password){
+        console.log(`${email}.....${password}`);
+        let regex=/^\S+@\S+\.\S+$/
+        let isvalid=true;
+        
+        if(email.match(regex)){
+          console.log(`mail validation pass`);
+        }else{
+          console.log(`mail validation failed`);
+          isvalid=false;
+          emailerr.textContent='email format missmatching';
+        }
+        let passregex=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        if(password.match(passregex)){
+          console.log(`password validation pass`);
+        }else{
+          console.log(`pass validation failed`);
+          isvalid=false;
+          passerr.textContent='pass format missmatching';
+        }
+        return isvalid;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="flex flex-col justify-center items-center h-[100vh] te ">
+    <div class=" w-[350px] h-[400px] h-14 bg-gradient-to-r from-pink-500 to-purple-500">
+    <p class="text-[26px] text-[white] font-semibold text-center my-5">update password</p>
+    
+        <form id="updatepasswordform" action="" class="flex flex-col justify-around h-[85%] px-[25px]">
+            <div>
+              <label for="newpassword" class="text-white">New password</label><br/>
+              <input
+                type="text"
+                required
+                id="newpassword"
+                placeholder="create New password"
+                class="w-[100%] outline-none p-[3px] rounded-lg mt-3"
+              />
+              <p id="newpassworderrmsg" class="text-[12px] text-[red]"></p>
+            </div>
+            <div>
+              <label for="confirmpassword" class="text-[white]">confirm password</label><br />
+              <input
+                type="text"
+                required       
+                id="confirmpassword"
+                placeholder="confirm password"
+                class="w-[100%] outline-none p-[3px] rounded-lg mt-3"
+              />
+              <p id="confirmpassworderrmsg" class="text-[12px] text-[red]"></p>
+            </div>
+  
+            <button class="bg-[#2541b0] text-white w-[50%] mx-auto rounded-lg py-2 my-8" id="updatebtn">
+              update
+            </button></div>
+          </form></div>
+          <script>
+           let updatepasswordform=document.getElementById("updatepasswordform");
+           let newpassword=document.getElementById("newpassword");
+           let confirmpassword=document.getElementById("confirmpassword");
+           let updatebtn=document.getElementById("updatebtn");
+           let confirmpassworderrmsg=document.getElementById("confirmpassworderrmsg");
+           let newpassworderrmsg=document.getElementById("newpassworderrmsg");
+           
+            
+           newpassword.addEventListener("input",(e)=>{
+            if(e.target.value===""){
+                newpassworderrmsg.textContent="newpassword should not be empty";
+            }
+            else{
+                newpassworderrmsg.textContent="";
+            }
+        });
+
+            confirmpassword.addEventListener("input",(e)=>{
+            if(e.target.value===""){
+                confirmpassworderrmsg.textContent="confirmpassword should not be empty";
+            }
+            else{
+                confirmpassworderrmsg.textContent="";
+            }
+
+           });
+
+           
+
+        // Validate passwords match on button click
+        updatebtn.addEventListener("click", (e) => {
+            if (newpassword.value === "" || confirmpassword.value === "") {
+                e.preventDefault();
+                if (newpassword.value === "") {
+                    newpassworderrmsg.textContent = "New password should not be empty";
+                }
+                if (confirmpassword.value === "") {
+                    confirmpassworderrmsg.textContent = "Confirm password should not be empty";
+                }
+            } else if (newpassword.value !== confirmpassword.value) {
+                e.preventDefault();
+                confirmpassworderrmsg.textContent = "Passwords should match";
+            } else {
+                confirmpassworderrmsg.textContent = "";
+            }
+        });
+
+
+
+
+
+          
+           // Handle form submission
+        updatepasswordform.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log(`${newpassword.value} .... and .... ${confirmpassword.value}`);
+            alert("Password updated successfully!");
+        });
+
+
+          </script>
+    
+</body>
+</html>
